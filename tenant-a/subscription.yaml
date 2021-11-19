@@ -1,0 +1,37 @@
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Subscription
+metadata:
+  name: tenant-a-git
+  namespace: tenant-a
+  labels:
+    acm-app: tenant-a-git
+  annotations:
+    apps.open-cluster-management.io/git-branch: main
+    apps.open-cluster-management.io/reconcile-rate: high
+spec:
+  channel: tenants-ch-helm/channel
+  name: rhacm-tenant
+  packageFilter:
+    version: 0.1.2
+  placement:
+    placementRef:
+      name: cloud-azure
+      namespace: tenants
+  packageOverrides:
+    - packageName: rhacm-tenant
+      packageAlias: tenant-a
+      packageOverrides:
+        - path: spec
+          value:
+            name: tenant-a
+            channels:
+              git:
+                type: Git
+                pathname: https://github.com/jtyr/rhacm-tenant-a.git
+                subscriptionAnnotations:
+                  apps.open-cluster-management.io/git-branch: main
+                  apps.open-cluster-management.io/reconcile-rate: high
+              helm:
+                type: HelmRepo
+                pathname: https://chartmuseum.github.io/charts

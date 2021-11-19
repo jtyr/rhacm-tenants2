@@ -1,0 +1,42 @@
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Subscription
+metadata:
+  name: tenants-git
+  namespace: tenants
+  labels:
+    acm-app: tenants-git
+  annotations:
+    apps.open-cluster-management.io/git-branch: main
+    apps.open-cluster-management.io/reconcile-rate: high
+spec:
+  channel: tenants-ch-helm/channel
+  name: rhacm-tenant
+  packageFilter:
+    version: 0.1.2
+  placement:
+    placementRef:
+      name: cloud-azure
+      namespace: tenants
+  packageOverrides:
+    - packageName: rhacm-tenant
+      packageAlias: tenants
+      packageOverrides:
+        - path: spec
+          value:
+            name: tenants
+            channels:
+              git:
+                type: Git
+                pathname: https://github.com/jtyr/rhacm-tenants.git
+                subscriptionAnnotations:
+                  apps.open-cluster-management.io/git-branch: main
+                  apps.open-cluster-management.io/reconcile-rate: high
+              helm:
+                type: HelmRepo
+                pathname: https://jtyr.github.io/helm-charts
+            placementRules:
+              cloud-azure:
+                clusterSelector:
+                  matchLabels:
+                    zone: internal-sut-eastus
