@@ -17,7 +17,7 @@ spec:
   placement:
     placementRef:
       name: cloud-azure
-      namespace: tenants
+      namespace: tenant-a
   packageOverrides:
     - packageName: rhacm-tenant
       packageAlias: tenant-a
@@ -35,3 +35,8 @@ spec:
               helm:
                 type: HelmRepo
                 pathname: https://chartmuseum.github.io/charts
+            placementRules:
+              cloud-azure:
+                clusterSelector:
+                  matchLabels:
+                    zone: internal-sut-eastus
