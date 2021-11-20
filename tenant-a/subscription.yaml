@@ -34,7 +34,7 @@ spec:
                 type: HelmRepo
                 pathname: https://chartmuseum.github.io/charts
             placementRules:
-              cloud-azure:
+              internal-sut-eastus:
                 clusterSelector:
                   matchLabels:
                     zone: internal-sut-eastus

@@ -34,7 +34,7 @@ spec:
                 type: HelmRepo
                 pathname: https://jtyr.github.io/helm-charts
             placementRules:
-              cloud-azure:
+              internal-sut-eastus-tenants:
                 clusterSelector:
                   matchLabels:
                     zone: internal-sut-eastus
