@@ -15,9 +15,7 @@ spec:
   packageFilter:
     version: 0.1.2
   placement:
-    placementRef:
-      name: cloud-azure
-      namespace: tenant-a
+    local: true
   packageOverrides:
     - packageName: rhacm-tenant
       packageAlias: tenant-a
