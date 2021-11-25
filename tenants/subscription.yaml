@@ -13,7 +13,7 @@ spec:
   channel: tenants-ch-helm/channel
   name: rhacm-tenant
   packageFilter:
-    version: 0.1.2
+    version: 0.1.5
   placement:
     placementRef:
       name: local
