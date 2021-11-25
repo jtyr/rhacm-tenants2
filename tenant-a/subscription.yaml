@@ -8,12 +8,11 @@ metadata:
     acm-app: tenant-a-git
   annotations:
     apps.open-cluster-management.io/git-branch: main
-    apps.open-cluster-management.io/reconcile-rate: high
 spec:
   channel: tenants-ch-helm/channel
   name: rhacm-tenant
   packageFilter:
-    version: 0.1.5
+    version: 0.1.6
   placement:
     placementRef:
       name: local
