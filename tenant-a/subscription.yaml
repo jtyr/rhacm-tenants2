@@ -15,7 +15,8 @@ spec:
   packageFilter:
     version: 0.1.2
   placement:
-    local: true
+    placementRef:
+      name: local
   packageOverrides:
     - packageName: rhacm-tenant
       packageAlias: tenant-a
