@@ -85,7 +85,7 @@ metadata:
     app.kubernetes.io/instance: tenant-a
     app.kubernetes.io/managed-by: Helm
   annotations: 
-    apps.open-cluster-management.io/git-branch: new
+    apps.open-cluster-management.io/git-branch: main
     apps.open-cluster-management.io/reconcile-rate: high
 spec:
   channel: tenant-a-ch-git/channel
