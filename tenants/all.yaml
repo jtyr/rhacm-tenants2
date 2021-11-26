@@ -1,0 +1,94 @@
+---
+# Source: rhacm-tenant/templates/channel-ns.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tenants-ch-git
+  labels: 
+    app.kubernetes.io/name: tenants
+    app.kubernetes.io/instance: tenants
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: rhacm-tenant/templates/application.yaml
+apiVersion: app.k8s.io/v1beta1
+kind: Application
+metadata:
+  name: tenants
+  namespace: tenants
+  labels: 
+    app.kubernetes.io/name: tenants
+    app.kubernetes.io/instance: tenants
+    app.kubernetes.io/managed-by: Helm
+spec:
+  componentKinds:
+    - group: apps.open-cluster-management.io
+      kind: Subscription
+  selector:
+    matchLabels:
+      acm-app: tenants
+---
+# Source: rhacm-tenant/templates/channel.yaml
+apiVersion: apps.open-cluster-management.io/v1
+kind: Channel
+metadata:
+  namespace: tenants-ch-git
+  name: channel
+  annotations:
+    apps.open-cluster-management.io/reconcile-rate: high
+  labels: 
+    app.kubernetes.io/name: tenants
+    app.kubernetes.io/instance: tenants
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: Git
+  pathname: https://github.com/jtyr/rhacm-tenants.git
+---
+# Source: rhacm-tenant/templates/placement-rule-local.yaml
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: local
+  namespace: tenants
+  labels: 
+    app.kubernetes.io/name: tenants
+    app.kubernetes.io/instance: tenants
+    app.kubernetes.io/managed-by: Helm
+spec:
+  clusterSelector:
+    matchLabels:
+      local-cluster: "true"
+---
+# Source: rhacm-tenant/templates/placement-rule.yaml
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  namespace: tenants
+  name: internal-sut-eastus-tenants
+  labels: 
+    app.kubernetes.io/name: tenants
+    app.kubernetes.io/instance: tenants
+    app.kubernetes.io/managed-by: Helm
+spec: 
+  clusterSelector:
+    matchLabels:
+      zone: internal-sut-eastus
+---
+# Source: rhacm-tenant/templates/subscription.yaml
+apiVersion: apps.open-cluster-management.io/v1
+kind: Subscription
+metadata:
+  name: tenants
+  namespace: tenants
+  labels:
+    acm-app: tenants
+    app.kubernetes.io/name: tenants
+    app.kubernetes.io/instance: tenants
+    app.kubernetes.io/managed-by: Helm
+  annotations: 
+    apps.open-cluster-management.io/git-branch: new
+    apps.open-cluster-management.io/reconcile-rate: high
+spec:
+  channel: tenants-ch-git/channel
+  placement:
+    placementRef:
+      name: local
