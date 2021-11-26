@@ -2,13 +2,8 @@
 apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
-  name: local
+  name: local-git
   namespace: tenants
-  labels:
-    app.kubernetes.io/managed-by: Helm
-  annotations:
-    meta.helm.sh/release-name: tenants
-    meta.helm.sh/release-namespace: tenants
 spec:
   clusterSelector:
     matchLabels:
