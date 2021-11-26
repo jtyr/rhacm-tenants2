@@ -63,7 +63,7 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
   namespace: tenants
-  name: internal-sut-eastus-tenants
+  name: internal-sut-eastus
   labels: 
     app.kubernetes.io/name: tenants
     app.kubernetes.io/instance: tenants
