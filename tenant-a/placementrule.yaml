@@ -5,8 +5,8 @@ metadata:
   name: local
   namespace: tenant-a
   labels:
-    app.kubernetes.io/name: tenants
-    app.kubernetes.io/instance: tenants
+    app.kubernetes.io/name: tenant-a
+    app.kubernetes.io/instance: tenant-a
     app.kubernetes.io/managed-by: Helm
 spec:
   clusterSelector:
