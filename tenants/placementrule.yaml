@@ -5,7 +5,10 @@ metadata:
   name: local
   namespace: tenants
   labels:
+    app.kubernetes.io/managed-by: Helm
+  annotations:
     meta.helm.sh/release-name: tenants
+    meta.helm.sh/release-namespace: tenants
 spec:
   clusterSelector:
     matchLabels:
