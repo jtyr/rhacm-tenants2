@@ -9,6 +9,16 @@ metadata:
     app.kubernetes.io/instance: tenant-a
     app.kubernetes.io/managed-by: Helm
 ---
+# Source: rhacm-tenant/templates/channel-ns.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tenant-a-ch-helm
+  labels:
+    app.kubernetes.io/name: tenant-a
+    app.kubernetes.io/instance: tenant-a
+    app.kubernetes.io/managed-by: Helm
+---
 # Source: rhacm-tenant/templates/application.yaml
 apiVersion: app.k8s.io/v1beta1
 kind: Application
@@ -42,6 +52,22 @@ metadata:
 spec:
   type: Git
   pathname: https://github.com/jtyr/rhacm-tenant-a.git
+---
+# Source: rhacm-tenant/templates/channel.yaml
+apiVersion: apps.open-cluster-management.io/v1
+kind: Channel
+metadata:
+  namespace: tenant-a-ch-helm
+  name: channel
+  annotations:
+    apps.open-cluster-management.io/reconcile-rate: high
+  labels:
+    app.kubernetes.io/name: tenant-a
+    app.kubernetes.io/instance: tenant-a
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: HelmRepo
+  pathname: https://chartmuseum.github.io/charts
 ---
 # Source: rhacm-tenant/templates/placement-rule-local.yaml
 apiVersion: apps.open-cluster-management.io/v1
