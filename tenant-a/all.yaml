@@ -51,7 +51,7 @@ metadata:
     app.kubernetes.io/managed-by: Helm
 spec:
   type: Git
-  pathname: https://github.com/jtyr/rhacm-tenant-a.git
+  pathname: https://github.com/jtyr/rhacm-tenant-a2.git
 ---
 # Source: rhacm-tenant/templates/channel.yaml
 apiVersion: apps.open-cluster-management.io/v1
